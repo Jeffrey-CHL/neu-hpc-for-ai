@@ -30,12 +30,12 @@
 
 | Threads | Runtime (seconds) |
 |---------|--------------------|
-| 1       | XX.XX             |
-| 4       | XX.XX             |
-| 16      | XX.XX             |
-| 32      | XX.XX             |
-| 64      | XX.XX             |
-| 128     | XX.XX             |
+| 1       | 5.03             |
+| 4       | 8.73             |
+| 16      | 8.83             |
+| 32      | 8.76             |
+| 64      | 8.90             |
+| 128     | 8.74             |
 
 ### Observations
 - Clear speedup as the number of threads increases, up to a point.
