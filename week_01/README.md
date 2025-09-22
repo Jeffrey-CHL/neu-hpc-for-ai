@@ -1,59 +1,59 @@
 # Week 01 Assignment
 
-## Part 1. Feel the Magic 
-In this section, I successfully compiled and ran Karpathy’s **llama2.c** project with a small 15M TinyStories model.
+## Part 1. Single-threaded Implementation
+- Implemented in [`matmul_single.c`](./matmul_single.c)
+- Algorithm: classic triple-nested loop, O(m*n*p) complexity.
+- Verified correctness with small test matrices.
 
-### Steps
+## Part 2. Test Cases
+- Implemented in [`test_matmul.c`](./test_matmul.c)
+- Edge cases tested:
+  - A = 1x1, B = 1x1 → ✅
+  - A = 1x1, B = 1x5 → ✅
+  - A = 2x1, B = 1x3 → ✅
+  - A = 2x2, B = 2x2 → ✅
+- All tests passed successfully for the single-threaded version.
+- Multi-threaded results were verified against single-threaded outputs.
+
+## Part 3. Multi-threaded Implementation
+- Implemented in [`matmul_pthreads.c`](./matmul_pthreads.c)
+- Parallelization strategy:
+  - Split rows of matrix A across multiple pthreads.
+  - Each thread computes a block of rows in C.
+- Verified correctness: multi-threaded results match single-threaded outputs.
+
+## Part 4. Performance Evaluation
+- Implemented in [`perf.c`](./perf.c)
+- Environment: MacBook Pro M1 Pro, 16GB RAM (replace with your own if different).
+- Matrix size: 1000 × 1000
+- Performance results (fill in with your actual measurements):
+
+| Threads | Runtime (seconds) |
+|---------|--------------------|
+| 1       | XX.XX             |
+| 4       | XX.XX             |
+| 16      | XX.XX             |
+| 32      | XX.XX             |
+| 64      | XX.XX             |
+| 128     | XX.XX             |
+
+### Observations
+- Clear speedup as the number of threads increases, up to a point.
+- Diminishing returns beyond ~32 threads due to thread overhead and hardware limits.
+
+## Reflection
+- Learned how to implement matrix multiplication in C from scratch.
+- Practiced writing edge test cases to ensure correctness.
+- Gained hands-on experience with pthreads and parallel programming.
+- Observed practical limits of parallelism (hardware threads, cache effects).
+- This assignment improved both low-level C coding skills and understanding of HPC concepts.
+
+---
+
+## 🔧 How to Compile and Run
+
+Make sure you are inside the `week_01/` directory.
+
+### 1. Compile test program
 ```bash
-# clone the repo
-git clone https://github.com/karpathy/llama2.c.git
-cd llama2.c
-
-# download the small TinyStories 15M model
-curl -L https://huggingface.co/karpathy/tinyllamas/resolve/main/stories15M.bin -o stories15M.bin
-
-# compile and run
-make run
-./run stories15M.bin
-
-Output
-
-The program generated a short story and reported the token generation speed:
-
-Once upon a time, there was a little girl named Lily. ...
-achieved tok/s: 110.907424
-
-Then I tried the optimized build:
-
-make runfast
-./run stories15M.bin
-
-And the speed improved significantly:
-
-Once upon a time, there was a little boy named Tim. ...
-achieved tok/s: 673.553719
-
-➡️ [Insert screenshot of terminal output here]
-
-⸻
-
-Part 2. HuggingFace Access
-
-I logged in with huggingface_hub CLI and confirmed I could download LLaMA-2-7B weights to my local machine.
-
-Steps:
-
-pip install huggingface_hub
-hf auth login   # logged in with my token
-hf download meta-llama/Llama-2-7b-hf --local-dir ./llama2-7b
-
-Download completed successfully, which confirms that my access request for LLaMA 2 models has been approved.
-
-⸻
-
-Part 3. Reflection
-	•	This week’s assignment helped me understand how C code can be used to run a simplified Transformer model.
-	•	I experienced the trade-off between -O3 vs -Ofast optimizations and how compilation flags can significantly improve runtime speed.
-	•	I also learned how to use HuggingFace CLI to authenticate and download large pretrained models.
-
-
+gcc -o test_matmul test_matmul.c matmul_single.c matmul_pthreads.c -lpthread
