@@ -7,7 +7,7 @@ image = (
         add_python="3.10"
     )
     .apt_install("build-essential")
-    .add_local_file("gemm.cu", "/root/gemm.cu")   # ✅ 新写法：把 gemm.cu 打进镜像
+    .add_local_file("gemm.cu", "/root/gemm.cu")
 )
 
 app = modal.App("week03-gemm")
