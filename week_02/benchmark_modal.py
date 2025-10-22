@@ -14,7 +14,7 @@ image = (
         "rm cuda-keyring_1.1-1_all.deb",
     )
     # ✅ 挂载 week_02 文件夹
-    .add_local_dir("week_02", "/root/week_02")
+    .add_local_dir(".", "/root/week_02")
 )
 
 # Define the Modal app
