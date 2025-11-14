@@ -2,7 +2,7 @@
 
 This project implements a **distributed FlashAttention** kernel using **CUDA** and **MPI**, and runs it on a GPU instance provisioned via [Modal](https://modal.com).
 
-The code is based on the course starter files for INFO 7375 / INFO 5100 “HPC for AI”.
+The code is based on the course starter files for INFO 7375 HPC for AI.
 
 ---
 
